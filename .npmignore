@@ -1,0 +1,7 @@
+.github/
+test/
+UPLOAD-GUIDE.md
+.gitignore
+.npmignore
+.study-log.json
+

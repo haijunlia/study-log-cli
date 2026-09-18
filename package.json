@@ -1,0 +1,26 @@
+{
+  "name": "study-log-cli",
+  "version": "0.1.0",
+  "description": "一个用于记录学习打卡并练习 GitHub SSH 上传与 Release 的 Node.js CLI",
+  "license": "MIT",
+  "author": "haijunlia",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "bin": {
+    "studylog": "src/cli.js"
+  },
+  "scripts": {
+    "start": "node src/cli.js",
+    "test": "node --test",
+    "pack:check": "npm pack --dry-run"
+  }
+}
+

@@ -1,0 +1,6 @@
+node_modules/
+*.tgz
+.study-log.json
+.npm-cache/
+.DS_Store
+
