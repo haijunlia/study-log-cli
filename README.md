@@ -199,6 +199,7 @@ Pull Request 页面中的 Checks 是 GitHub Actions 的检查结果。CI 失败�
 - .github/workflows/ci.yml：Push 或 Pull Request 时运行测试
 - .github/workflows/release.yml：推送 v*.*.* Tag 时创建 Release
 - UPLOAD-GUIDE.md：详细上传手册
+- COLLABORATION-GUIDE.md：两人协作、Pull Request、合并冲突和发布版本手册
 
 ## 许可证
 
