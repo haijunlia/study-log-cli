@@ -6,6 +6,7 @@
 
 - 添加学习记录
 - 查看学习记录
+- 删除学习记录
 - 自动化测试
 - GitHub Actions CI
 - 推送版本 Tag 后自动创建 Release
@@ -21,6 +22,7 @@ npm test
 npm start -- add 学习 GitHub SSH
 npm start -- add 学习 GitHub Actions
 npm start -- list
+npm start -- remove 1
 ```
 
 学习记录会保存在当前目录的 .study-log.json。这个文件已经被 .gitignore 忽略，不会上传到 GitHub。
@@ -72,15 +74,17 @@ git@github.com:haijunlia/study-log-cli.git
 
 ### 3. 发布第一个版本
 
-第一次上传成功后，可以发布 v0.1.0：
+第一次上传成功后，可以发布 v0.2.0：
 
 ```powershell
 npm test
-git tag -a v0.1.0 -m "Release v0.1.0"
-git push origin v0.1.0
+git tag -a v0.2.0 -m "Release v0.2.0"
+git push origin v0.2.0
 ```
 
-GitHub Actions 会自动测试项目并创建 v0.1.0 Release。
+GitHub Actions 会自动测试项目并创建 v0.2.0 Release。
+
+完整的“新增功能 → Pull Request → 发布 v0.2.0”流程，请阅读 UPLOAD-GUIDE.md 中的“本次项目的 v0.2.0 实操流程”。
 
 ## 如果 origin 已经存在
 
@@ -174,7 +178,7 @@ Pull Request 页面中的 Checks 是 GitHub Actions 的检查结果。CI 失败�
 本项目使用自动发布：
 
 1. 本地更新 package.json、package-lock.json 和 CHANGELOG.md。
-2. 本地创建版本 Tag，例如 v0.1.0。
+2. 本地创建版本 Tag，例如 v0.2.0。
 3. 将 Tag Push 到 GitHub。
 4. GitHub Actions 自动测试并打包。
 5. GitHub Actions 自动创建 Release。
