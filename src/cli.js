@@ -4,9 +4,10 @@ const { CheckinStore } = require("./checkin-store");
 
 function printHelp(output = console.log) {
   output(
-    "用法：\n" +
+      "用法：\n" +
       "  npm start -- add <学习内容>   添加一条学习记录\n" +
       "  npm start -- list             查看学习记录\n" +
+      "  npm start -- remove <记录 ID> 删除一条学习记录\n" +
       "  npm start -- help             显示帮助\n"
   );
 }
@@ -40,6 +41,12 @@ function main(args = process.argv.slice(2), env = process.env) {
       return 0;
     }
 
+    if (command === "remove") {
+      const entry = store.remove(rest[0]);
+      console.log("已删除：" + entry.date + " #" + entry.id + " " + entry.note);
+      return 0;
+    }
+
     console.error("未知命令：" + command);
     printHelp(console.error);
     return 1;
@@ -54,4 +61,3 @@ if (require.main === module) {
 }
 
 module.exports = { main };
-

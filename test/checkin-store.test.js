@@ -29,6 +29,18 @@ test("记录按 ID 从新到旧排列", () => {
   assert.deepEqual(store.list().map((entry) => entry.id), [2, 1]);
 });
 
+test("可以删除指定学习记录", () => {
+  const store = createStore();
+  store.add("保留的记录");
+  store.add("需要删除的记录");
+
+  const removed = store.remove(2);
+
+  assert.equal(removed.note, "需要删除的记录");
+  assert.deepEqual(store.list().map((entry) => entry.id), [1]);
+  assert.throws(() => store.remove(2), /找不到学习记录/);
+});
+
 test("空内容会被拒绝", () => {
   const store = createStore();
 
@@ -40,4 +52,3 @@ test("非法日期会被拒绝", () => {
 
   assert.throws(() => store.add("测试日期", "not-a-date"), /日期格式不正确/);
 });
-

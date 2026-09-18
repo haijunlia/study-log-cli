@@ -52,6 +52,23 @@ class CheckinStore {
     return this.read().sort((left, right) => right.id - left.id);
   }
 
+  remove(entryId) {
+    const id = Number(entryId);
+    if (!Number.isInteger(id) || id < 1) {
+      throw new Error("学习记录 ID 必须是正整数。");
+    }
+
+    const entries = this.read();
+    const index = entries.findIndex((entry) => entry.id === id);
+    if (index === -1) {
+      throw new Error("找不到学习记录 #" + id + "。");
+    }
+
+    const [removed] = entries.splice(index, 1);
+    this.#write(entries);
+    return removed;
+  }
+
   #formatDate(date) {
     const value = date instanceof Date ? date : new Date(date);
     if (Number.isNaN(value.getTime())) {
@@ -77,4 +94,3 @@ class CheckinStore {
 }
 
 module.exports = { CheckinStore };
-
