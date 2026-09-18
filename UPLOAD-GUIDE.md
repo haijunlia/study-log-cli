@@ -195,7 +195,7 @@ Push 成功后回到仓库的 Code 页面：
 5. 确认 Build package 成功。
 6. 确认 Create GitHub Release 成功。
 7. 打开 Releases 页面。
-8. 检查 v0.1.0 和 study-log-cli-0.1.0.tgz 附件。
+8. 检查 v0.2.0 和 study-log-cli-0.2.0.tgz 附件。
 
 不要在 Release 工作流已经成功后，再手动创建同一个 Tag 的 Release。想修改说明时，进入已有 Release 页面点击 Edit release。
 
@@ -312,14 +312,14 @@ git status
 确认工作区干净后创建 Tag：
 
 ```powershell
-git tag -a v0.1.0 -m "Release v0.1.0"
-git show v0.1.0 --stat
-git push origin v0.1.0
+git tag -a v0.2.0 -m "Release v0.2.0"
+git show v0.2.0 --stat
+git push origin v0.2.0
 ```
 
 打开 GitHub 的 Actions 页面，等待 Release 工作流完成。
 
-然后打开 Releases 页面，应该看到 v0.1.0 和一个 study-log-cli-0.1.0.tgz 附件。
+然后打开 Releases 页面，应该看到 v0.2.0 和一个 study-log-cli-0.2.0.tgz 附件。
 
 ---
 
@@ -354,6 +354,139 @@ git branch -d docs/my-first-change
 ```
 
 ---
+
+### 本次项目的 v0.2.0 实操流程
+
+本项目新增了删除学习记录功能：
+
+```powershell
+npm start -- remove <记录 ID>
+```
+
+它属于新增功能，所以版本从 v0.1.0 升级到 v0.2.0。推荐按照“功能分支 → Pull Request → 合并 → Tag → Release”的顺序发布。
+
+#### 9.1 从 main 创建功能分支
+
+先同步主分支：
+
+```powershell
+git switch main
+git pull
+```
+
+创建功能分支：
+
+```powershell
+git switch -c feat/remove-study-log
+```
+
+#### 9.2 检查功能修改
+
+本地项目中已经包含本次功能修改。查看修改文件：
+
+```powershell
+git status
+git diff
+```
+
+本次应该包含类似文件：
+
+- src/checkin-store.js
+- src/cli.js
+- test/checkin-store.test.js
+- package.json
+- package-lock.json
+- CHANGELOG.md
+- README.md
+
+运行测试和打包检查：
+
+```powershell
+npm test
+npm run pack:check
+```
+
+#### 9.3 提交并 Push 功能分支
+
+把本次功能涉及的文件加入暂存区：
+
+```powershell
+git add src/checkin-store.js src/cli.js test/checkin-store.test.js package.json package-lock.json CHANGELOG.md README.md
+git diff --cached
+```
+
+确认暂存区内容正确后提交：
+
+```powershell
+git commit -m "feat: add study log deletion"
+git push -u origin feat/remove-study-log
+```
+
+#### 9.4 在 GitHub 创建 Pull Request
+
+Push 成功后打开 GitHub 仓库页面：
+
+1. 点击 Compare & pull request。
+2. Base 分支选择 main。
+3. Compare 分支选择 feat/remove-study-log。
+4. 标题填写 feat: add study log deletion。
+5. 点击 Create pull request。
+6. 在 Files changed 中检查代码和文档。
+7. 在 Checks 中等待 CI 变成绿色。
+8. 点击 Merge pull request。
+9. 点击 Confirm merge。
+10. 合并后点击 Delete branch 删除远程功能分支。
+
+不要在 Pull Request 还没有合并时创建 v0.2.0 Tag。Tag 应该指向已经合并到 main 的代码。
+
+#### 9.5 合并后同步 main
+
+回到 PowerShell：
+
+```powershell
+git switch main
+git pull
+git branch -d feat/remove-study-log
+```
+
+确认版本号和测试结果：
+
+```powershell
+node -p "require('./package.json').version"
+npm test
+npm run pack:check
+git status
+```
+
+版本号应该输出 0.2.0，测试应该全部通过，工作区应该是干净的。
+
+#### 9.6 创建并 Push v0.2.0 Tag
+
+```powershell
+git tag -a v0.2.0 -m "Release v0.2.0"
+git show v0.2.0 --stat
+git push origin v0.2.0
+```
+
+Push Tag 后，GitHub Actions 会自动运行 Release 工作流。
+
+#### 9.7 在 GitHub 检查 Release
+
+进入仓库的 Actions 页面：
+
+1. 找到 Release 工作流。
+2. 确认 Verify tests 成功。
+3. 确认 Build package 成功。
+4. 确认 Create GitHub Release 成功。
+
+再进入 Releases 页面，确认：
+
+- 版本号是 v0.2.0。
+- Release Notes 已生成。
+- 附件中有 study-log-cli-0.2.0.tgz。
+
+这就完成了“修改功能 → 发布新版本”的完整流程。
+
 
 ## 10. 常见错误
 
