@@ -52,6 +52,15 @@ class CheckinStore {
     return this.read().sort((left, right) => right.id - left.id);
   }
 
+  search(keyword) {
+    const cleanKeyword = String(keyword ?? "").trim().toLowerCase();
+    if (!cleanKeyword) {
+      throw new Error("搜索关键词不能为空。");
+    }
+
+    return this.list().filter((entry) => entry.note.toLowerCase().includes(cleanKeyword));
+  }
+
   remove(entryId) {
     const id = Number(entryId);
     if (!Number.isInteger(id) || id < 1) {

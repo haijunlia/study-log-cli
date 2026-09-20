@@ -29,6 +29,24 @@ test("记录按 ID 从新到旧排列", () => {
   assert.deepEqual(store.list().map((entry) => entry.id), [2, 1]);
 });
 
+test("可以按关键词搜索学习记录", () => {
+  const store = createStore();
+  store.add("学习 GitHub Actions");
+  store.add("学习 Docker");
+  store.add("复习 GitHub SSH");
+
+  assert.deepEqual(
+    store.search("github").map((entry) => entry.note),
+    ["复习 GitHub SSH", "学习 GitHub Actions"]
+  );
+});
+
+test("空搜索关键词会被拒绝", () => {
+  const store = createStore();
+
+  assert.throws(() => store.search("   "), /搜索关键词不能为空/);
+});
+
 test("可以删除指定学习记录", () => {
   const store = createStore();
   store.add("保留的记录");

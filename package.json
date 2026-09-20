@@ -1,6 +1,6 @@
 {
   "name": "study-log-cli",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "一个用于记录学习打卡并练习 GitHub SSH 上传与 Release 的 Node.js CLI",
   "license": "MIT",
   "author": "haijunlia",

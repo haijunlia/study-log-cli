@@ -6,6 +6,7 @@
 
 - 添加学习记录
 - 查看学习记录
+- 按关键词搜索学习记录
 - 删除学习记录
 - 自动化测试
 - GitHub Actions CI
@@ -22,6 +23,7 @@ npm test
 npm start -- add 学习 GitHub SSH
 npm start -- add 学习 GitHub Actions
 npm start -- list
+npm start -- search github
 npm start -- remove 1
 ```
 

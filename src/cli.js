@@ -7,6 +7,7 @@ function printHelp(output = console.log) {
       "用法：\n" +
       "  npm start -- add <学习内容>   添加一条学习记录\n" +
       "  npm start -- list             查看学习记录\n" +
+      "  npm start -- search <关键词>  搜索学习记录\n" +
       "  npm start -- remove <记录 ID> 删除一条学习记录\n" +
       "  npm start -- help             显示帮助\n"
   );
@@ -32,6 +33,19 @@ function main(args = process.argv.slice(2), env = process.env) {
       const entries = store.list();
       if (entries.length === 0) {
         console.log("暂无学习记录。");
+        return 0;
+      }
+
+      entries.forEach((entry) => {
+        console.log(entry.date + " #" + entry.id + " " + entry.note);
+      });
+      return 0;
+    }
+
+    if (command === "search") {
+      const entries = store.search(rest.join(" "));
+      if (entries.length === 0) {
+        console.log("没有匹配的学习记录。");
         return 0;
       }
 
